@@ -70,6 +70,14 @@ func NewEngine(book *OrderBook, log *EventLog, onTradeFunc OnTradeFunc) *Engine 
 	}
 }
 
+func (e *Engine) GetBook() *OrderBook {
+	return e.book
+}
+
+func (e *Engine) GetLog() *EventLog {
+	return e.log
+}
+
 func (e *Engine) SubmitOrder(o *Order) error {
 	if o.Quantity <= 0 {
 		return errors.New("invalid quantity")
