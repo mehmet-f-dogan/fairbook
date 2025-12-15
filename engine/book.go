@@ -36,6 +36,10 @@ type PriceLevel struct {
 	exhausted bool
 }
 
+func (pl *PriceLevel) GetOverviewData() (Price, int) {
+	return pl.price, len(pl.orders)
+}
+
 func newPriceLevel(price Price) *PriceLevel {
 	return &PriceLevel{
 		price:     price,
