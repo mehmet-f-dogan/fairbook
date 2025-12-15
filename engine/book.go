@@ -29,15 +29,15 @@ type Order struct {
 	Canceled bool
 }
 
-type priceLevel struct {
+type PriceLevel struct {
 	price     Price
 	orders    []*Order
 	head      int
 	exhausted bool
 }
 
-func newPriceLevel(price Price) *priceLevel {
-	return &priceLevel{
+func newPriceLevel(price Price) *PriceLevel {
+	return &PriceLevel{
 		price:     price,
 		orders:    make([]*Order, 0, 256),
 		head:      0,
@@ -46,18 +46,18 @@ func newPriceLevel(price Price) *priceLevel {
 }
 
 type OrderBook struct {
-	bids map[Price]*priceLevel
-	asks map[Price]*priceLevel
+	Bids map[Price]*PriceLevel
+	Asks map[Price]*PriceLevel
 
-	bidPrices []Price
-	askPrices []Price
+	BidPrices []Price
+	AskPrices []Price
 }
 
 func NewOrderBook() *OrderBook {
 	return &OrderBook{
-		bids:      make(map[Price]*priceLevel, 32_768),
-		asks:      make(map[Price]*priceLevel, 32_768),
-		bidPrices: make([]Price, 0, 32_768),
-		askPrices: make([]Price, 0, 32_768),
+		Bids:      make(map[Price]*PriceLevel, 32_768),
+		Asks:      make(map[Price]*PriceLevel, 32_768),
+		BidPrices: make([]Price, 0, 32_768),
+		AskPrices: make([]Price, 0, 32_768),
 	}
 }

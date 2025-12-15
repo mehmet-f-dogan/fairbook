@@ -151,12 +151,12 @@ func (e *Engine) processTrade(o *Order, targetOrder *Order, price Price) {
 }
 
 func (e *Engine) matchBuy(o *Order) {
-	for _, price := range e.book.askPrices {
+	for _, price := range e.book.AskPrices {
 		if price > o.Price || o.Quantity == 0 {
 			break
 		}
 
-		lvl := e.book.asks[price]
+		lvl := e.book.Asks[price]
 		for lvl.head < len(lvl.orders) && o.Quantity > 0 {
 			target := lvl.orders[lvl.head]
 			if target.Canceled || target.Quantity == 0 {
@@ -175,12 +175,12 @@ func (e *Engine) matchBuy(o *Order) {
 }
 
 func (e *Engine) matchSell(o *Order) {
-	for _, price := range e.book.bidPrices {
+	for _, price := range e.book.BidPrices {
 		if price < o.Price || o.Quantity == 0 {
 			break
 		}
 
-		lvl := e.book.bids[price]
+		lvl := e.book.Bids[price]
 		for lvl.head < len(lvl.orders) && o.Quantity > 0 {
 			target := lvl.orders[lvl.head]
 
@@ -202,12 +202,12 @@ func (e *Engine) matchSell(o *Order) {
 }
 
 func (e *Engine) CompactBook() {
-	e.compactSide(e.book.bids, &e.book.bidPrices)
-	e.compactSide(e.book.asks, &e.book.askPrices)
+	e.compactSide(e.book.Bids, &e.book.BidPrices)
+	e.compactSide(e.book.Asks, &e.book.AskPrices)
 }
 
 func (e *Engine) compactSide(
-	levels map[Price]*priceLevel,
+	levels map[Price]*PriceLevel,
 	prices *[]Price,
 ) {
 	dst := (*prices)[:0]
